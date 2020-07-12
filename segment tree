@@ -9,3 +9,62 @@ https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
 => else (next power of 2)*2 - 1 
 5. We will create above size array then call build method to create segment tree.
 6. Segment tree will provide range query result in o(logn) times.( It will call at max 4 branches to get res so 4.logn => O(logn) ) 
+7. In segment tree we can get Left child => 2*i + 1, Right Child => 2*i + 2, Parent => (i - 1)/2
+8. In segment tree element at index 0 is called root of this tree.
+9. All cells of tree array may not be used so we need to initialized with proper value to get correct ans.(For min query initialize with +INF,for max => -INF, for sum => 0)
+10. while we are looking for range query there will be 3 cases between node range and query range; Node range can be
+=> patial overloap    ; call this function on both child
+=> total overlap      ; return node value
+=> no overlap         ; return default value( min => +inf, max => -INF etc)
+with Query range.
+
+
+import java.util.*;
+public class Main{
+	public static void main(String[] args) {
+		int []input = new int[]{-1,2,4,0,5};
+		int n = 5;//input size
+		SegmentTree obj = new SegmentTree(input);
+		System.out.println("Min in range[0-3] is : "+obj.rangeMin(0,3));
+	}
+}
+
+class SegmentTree{
+    int tree[] = null;
+    int size = 0;// size of input array
+    SegmentTree(int []input){
+    size = input.length;
+    int nextPow = (int)Math.ceil(Math.log(size)/Math.log(2));
+	int m = (int)Math.pow(2,nextPow)*2 - 1;// tree size
+	tree = new int[m];
+	Arrays.fill(tree,Integer.MAX_VALUE);
+	build(input,0,size - 1,0);p(Arrays.toString(input)+"");p(Arrays.toString(tree)+"");
+    }
+    void build(int []input,int l,int h,int root){//p(l+" "+h+" "+root);
+        if(l == h){
+            tree[root] = input[l];
+            return;
+        }
+        int mid = l + (h - l) / 2;
+        build(input, l , mid, 2*root + 1);
+        build(input, mid + 1, h , 2*root + 2);
+        tree[root] = Math.min(tree[2*root + 1],tree[2*root + 2]);
+    }
+    int rangeMin(int l, int h){
+        return rangeMinUtil(0,size - 1,0,l,h);
+    }
+    int rangeMinUtil(int low, int high,int root,int l,int h){
+        if(l <= low && h >= high){//total overlap
+            return tree[root];
+        }
+        if(l > high || h < low)// no overlap
+            return Integer.MAX_VALUE;
+        int mid = low + (high - low) / 2; 
+        return Math.min(rangeMinUtil(low,mid,2*root+1,l,h),rangeMinUtil(mid+1,high,2*root + 2 ,l,h));
+    }
+    void p(String s){
+        System.out.println(s);
+    }
+}
+
+
