@@ -2,6 +2,13 @@
 https://www.youtube.com/watch?v=ZBHKZF5w4YU
 https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
 
+Summary :
+=== Operations ==== Time Complexity
+=== Build       ==== O(n)
+=== Update	==== O(logn)
+=== Range Query ==== O(logn)
+It is used for range Query.
+
 1. Segment tree is used for range query.(ex. max,min sum in range[5-20])
 2. It takes O(n) time to create segment tree.
 4. If we have n nums in an array and we want to create segment tree we need extra space to create this as follows
