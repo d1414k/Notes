@@ -18,7 +18,8 @@ https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
 => no overlap         ; return default value( min => +inf, max => -INF etc)
 with Query range.
 
-
+======================================>Implementaions:
+1. Array based==============================================>
 import java.util.*;
 public class Main{
 	public static void main(String[] args) {
@@ -64,6 +65,65 @@ class SegmentTree{
     }
     void p(String s){
         System.out.println(s);
+    }
+}
+2. Node based ===================================>    https://leetcode.com/problems/range-sum-query-mutable/
+
+class NumArray {
+    class SegmentTree{
+        int sum,start,end;
+        SegmentTree left,right;
+        SegmentTree(int start,int end,int sum){
+            this.start = start;
+            this.end = end;
+            this.sum = sum;
+        }
+    }
+    SegmentTree buildTree(int []nums, int low, int high){
+        if(low > high)
+            return null;
+        if(low == high){
+            return new SegmentTree(low,high,nums[low]);
+        }
+        int mid = low + (high - low) / 2;
+        SegmentTree root = new SegmentTree(low,high,0);
+        root.left = buildTree(nums,low,mid);
+        root.right = buildTree(nums,mid + 1,high);
+        root.sum = root.left.sum + root.right.sum;
+        return root;
+    }
+    SegmentTree update(SegmentTree root, int index, int val){
+        if(root.start > index || index > root.end)
+            return root;
+        if(root.start == root.end){
+            if(root.start == index)
+                root.sum = val;
+            return root;
+        }
+        root.left = update(root.left,index,val);
+        root.right = update(root.right,index,val);
+        root.sum = root.left.sum + root.right.sum;
+        return root;
+    }
+    int sumRange(SegmentTree root, int low, int high){
+        if(root.start >= low && root.end <= high){//full overlap
+            return root.sum;
+        }
+        if(root.end < low || root.start > high){//no overlap
+            return 0;
+        }
+        return sumRange(root.left,low,high) + sumRange(root.right,low,high);
+    }
+    SegmentTree root = null;
+    public NumArray(int[] nums) {
+        root = buildTree(nums,0,nums.length - 1);
+    }
+    public void update(int i, int val) {
+        update(root,i,val);
+    }
+    
+    public int sumRange(int i, int j) {
+        return sumRange(root,i,j);
     }
 }
 
