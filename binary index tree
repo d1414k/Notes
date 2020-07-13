@@ -1,0 +1,51 @@
+----------------------------------- Binary Index Tree-----------------------------
+Links:
+https://www.youtube.com/watch?v=CWDQJGaN1gY
+https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/
+
+======> It is also known as Fenwick tree.
+
+Summary:--------------------------------------------------------------------------------
+
+=== Operations   === Time Complexity
+=== Build        ===  O(nlogn)
+=== Update       ===  O(logn)
+=== Prefix sum   ===  O(logn)
+
+It is used fron prefix sum when updates are also allowed.
+--------------------------------------------------------------------------------------------
+Basics :
+1. How to get parent of node at index i. (just flip least significant set bit)
+  parent = i - (i & -i)
+2. How to get next node for node at index i.
+  next = i + (i & -i)
+--------------------------------------------------------------------------------------------
+Notes:
+1. Binary index tree is a k ary tree.
+2. it contains n+1 nodes. if we have to create binary index tree for n nodes.
+3. So it will be implemented as n+1 size array.
+
+Operations ====>
+1. Build(int []nums, int n)
+   create an array b[n+1]
+   Fill all element as 0
+   for i = 0 to n-1
+      next = i + 1;
+      while(next <= n)
+         b[next] += nums[i];
+         next = next + (next & -next)
+     
+ 2. PrefixSum(int i)
+    while(i > 0)
+        res += b[i]
+        i -= (i & -i)
+        
+ 3. Update(int i, int x)// here we need to add x to index i   => nums[i] +=x
+        next = i + 1
+        while(next <= n)
+            b[next] += x
+            next += next & -next
+            
+-----------------------------------------------------------------------------------------------------------------------------------------------
+    
+   
