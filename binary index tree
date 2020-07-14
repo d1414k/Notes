@@ -48,4 +48,44 @@ Operations ====>
             
 -----------------------------------------------------------------------------------------------------------------------------------------------
     
-   
+   import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		BIT bit = new BIT(new int[]{10,-2,5,4,8,-4,3,0,1});
+		bit.print();
+		System.out.println("prefix sum till index 3 is : " + bit.perfixSum(4));
+		bit.update(1,2);
+		System.out.println("prefix sum till index 3 is : " + bit.perfixSum(4));
+	}
+}
+class BIT{// binary index tree
+    int []b = null;
+    int size = 0;// size of original array
+    BIT(int []nums){
+        size = nums.length;
+        b = new int[size + 1]; 
+        for(int i = 0 ; i < size ; i++){
+            update(i,nums[i]);
+        }
+    }
+    void update(int i, int val){// add val to index i
+        int next = i + 1;
+        while(next <= size ){
+            b[next] += val;
+            next += (next & -next);
+        }
+    }
+    int perfixSum(int index){
+        int next = index + 1,sum = 0;
+        while(next > 0){
+            sum += b[next];
+            next -= (next & -next);
+        }
+        return sum;
+    }
+    void print(){
+        System.out.println("BIT array is : "+Arrays.toString(b));
+    }
+}
+
