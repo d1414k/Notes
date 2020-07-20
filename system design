@@ -1,3 +1,10 @@
+Links:
+https://www.youtube.com/watch?v=xpDnVSmNFX0&list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX
+-----------------------------------------------------------------------------------------------
 Type of scaling
-  1. Horizontal => Create multiple machine
+  1. Horizontal => Create multiple machine.
   2. Vertical   => create powerful machine
+  
+Load Balancing:
+  1. normaing hasing. (if we have n servers we can send new request based on some hash function % n server)
+  2. Consistent Hashing
