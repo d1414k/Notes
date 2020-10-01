@@ -1,0 +1,6 @@
+KMP
+https://www.youtube.com/watch?v=GTJr8OvyEVQ
+
+Time  :  O(n+m)
+logic :  for pattern first compute temp array
+temp[i] = indicates that what is length of larget prefix which is also suffix ending at i
