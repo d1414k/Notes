@@ -4,3 +4,32 @@ https://www.youtube.com/watch?v=GTJr8OvyEVQ
 Time  :  O(n+m)
 logic :  for pattern first compute temp array
 temp[i] = indicates that what is length of larget proper prefix which is also proper suffix ending at i
+
+compute lps:
+---------------------------------------------------------------------
+class Solution {
+    int lps(String s) {
+        if(s == null)
+            return 0;
+        int n = s.length();
+        int lp[] = new int[n];
+        Arrays.fill(lp,0);
+        int j = 0;
+        for(int i = 1 ; i < n ;){
+            if(s.charAt(j) == s.charAt(i)){
+                lp[i] = j+1;
+                j++;
+                i++;
+            }
+            else{
+                if(j > 0)
+                    j = lp[j-1];
+                else
+                    i++;
+                    
+            }
+        }
+        return lp[n-1];
+    }
+}
+*******************************************************************************************
