@@ -1,1 +1,110 @@
 https://www.youtube.com/watch?v=02zM-QoKoPg
+
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+		List<Integer> []tree = new List[8];
+		for(int i = 0 ; i < 8 ; i++){
+		    tree[i] = new ArrayList<Integer>();
+		}
+		tree[0].add(1);
+		tree[0].add(2);
+		
+		tree[1].add(0);
+		tree[1].add(4);
+		tree[1].add(3);
+		
+		tree[2].add(0);
+		
+		tree[3].add(1);
+		
+		tree[4].add(1);
+		tree[4].add(5);
+		
+		tree[5].add(4);
+		tree[5].add(6);
+		tree[5].add(7);
+		
+		tree[6].add(5);
+	
+		tree[7].add(5);
+        
+        BinaryLifting bl = new BinaryLifting(8,tree);
+        System.out.println("LCA of 3, 7 is : " + bl.lca(3,7));
+        System.out.println("LCA of 4, 5 is : " + bl.lca(4,5));
+        System.out.println("LCA of 7, 2 is : " + bl.lca(7,2));
+        System.out.println("LCA of 5, 3 is : " + bl.lca(5,3));
+	}
+}
+
+class BinaryLifting{
+    // size is no of nodes in Tree
+    int size = 0;
+    // it is log(n) base 2
+    int logn = 0;
+    //  dp[u][i] means ancestor of u at distance 2^i
+    int [][]dp;
+    // Tree
+    List<Integer> []tree;
+    
+    int []level;
+    BinaryLifting(int n, List<Integer> []tree){
+        size = n;
+        logn = (int) Math.ceil(Math.log(n) /  Math.log(2));
+        dp = new int[size][logn + 1];
+        this.tree = tree;
+        level = new int[size];
+        
+        dfs(0,0,0); // O is considered as root;
+    }
+    // u is any node and p is its parent , lev is curLevel
+    void dfs(int u,int p,int curLevel){
+        level[u] = curLevel;
+        // update ancestors
+        dp[u][0] = p;
+        for(int i = 1 ; i <= logn ; i++){
+            dp[u][i] = dp[dp[u][i-1]][i-1];
+        }
+        
+        // call for adjacent
+        for(int v : tree[u]){
+            if(v == p) continue;
+            dfs(v,u,curLevel+1);
+        }
+    }
+    // return LCA of u and v where level of u is <= that of v
+    int lca(int u,int v){
+        if(level[u] < level[v])
+            return lca(v,u);
+        // difference between v and u level
+        int diff = level[u] - level[v]; //p("diff is "+diff);
+        int x = (int)(Math.log(diff)/ Math.log(2)); 
+        for(int i = x ; i >= 0 ; i--){
+            if((diff & (1<<i)) != 0)
+                u = dp[u][i];
+        }
+        if(u == v) return u; //p("u,v is "+ u+" "+v);
+        
+        for(int i = logn-1 ; i >= 0 ; i--){
+           if(dp[u][i] != dp[v][i]){
+               u = dp[u][i];
+               v = dp[v][i];
+           } 
+        }
+        return dp[u][0];
+    }
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("level : \n"+Arrays.toString(level)+"\ndp is\n");
+        for(int i = 0 ; i < size ; i++)
+            sb.append(i+" -> "+Arrays.toString(dp[i])+"\n");
+        
+        return sb.toString();
+    }
+    void p(String str){
+        System.out.println(str);
+    }
+}
