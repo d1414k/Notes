@@ -12,7 +12,7 @@ Summary:------------------------------------------------------------------------
 === Update       ===  O(logn)
 === Prefix sum   ===  O(logn)
 
-It is used fron prefix sum when updates are also allowed.
+It is used for prefix sum when updates are also allowed.
 --------------------------------------------------------------------------------------------
 Basics :
 1. How to get parent of node at index i. (just flip least significant set bit)
