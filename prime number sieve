@@ -1,0 +1,26 @@
+class Solution{
+	static int size = 100;
+	static boolean []isPrime = new boolean[size+1];
+	static ArrayList<Integer> list;
+	static {
+		list = new ArrayList(); 
+		Arrays.fill(isPrime, true);
+		for(int i = 2 ; i*i <= size; i++) {
+			if(!isPrime[i]) continue;
+			for(int j = i*i; j <= size ; j+=i) {
+				isPrime[j] = false;
+			}
+		}
+		for(int i = 2 ; i <= size ; i++) {
+			if(isPrime[i]) list.add(i);
+		}
+	}
+	static void print() {
+		System.out.println(list);
+	}
+}
+
+
+/*
+Time Complexity :  O(nlog(logn))
+*/
