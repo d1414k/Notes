@@ -1,0 +1,33 @@
+public class Solution {
+    public int strStr(final String A, final String B) {
+        if(A == null || A.length() == 0 || B == null || B.length() == 0) return -1;
+        int []lps = new int[B.length()];
+        for(int i = 0, j = 1 ; j < B.length() ;){
+            if(B.charAt(i) == B.charAt(j)){
+                lps[j++] = ++i;
+            }
+            else {
+                if(i > 0)
+                    i = lps[i-1];
+                else
+                    j++;
+            }
+        }
+        for(int i = 0, j = 0 ; j < A.length();){
+            if(B.charAt(i) == A.charAt(j)){
+                i++;
+                j++;
+                if(i == B.length())
+                    return j-B.length(); 
+            }
+            else {
+                if(i > 0)
+                    i = lps[i-1];
+                else
+                    j++;
+            }
+            
+        }
+        return -1;
+    }
+}
