@@ -1,0 +1,55 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ArrayList<Integer> solve(TreeNode A, int B) {
+        ArrayList<Integer> res = new ArrayList();
+        if(A == null || A.val == B) return res;
+        Queue<TreeNode> q = new LinkedList();
+        q.add(A);
+        boolean found = false;
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i = 0 ; i < size ; i++){
+                TreeNode root = q.poll();
+                // both child present
+                if(root.left != null && root.right != null){
+                    if(root.left.val == B || root.right.val == B)
+                        found = true;
+                    else{
+                        q.add(root.left);
+                        q.add(root.right);
+                    }
+                }
+                // single child
+                else if(root.left != null){
+                    if(root.left.val == B)
+                        found = true;
+                    else
+                        q.add(root.left);
+                }
+                else if(root.right != null){
+                    if(root.right.val == B)
+                        found = true;
+                    else
+                        q.add(root.right);
+                }
+            }
+            if(found)
+                break;
+        }
+        while(!q.isEmpty())
+            res.add(q.poll().val);
+        return res;
+    }
+}
