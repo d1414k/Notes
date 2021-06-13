@@ -45,7 +45,30 @@ Operations ====>
         while(next <= n)
             b[next] += x
             next += next & -next
-            
+ 
+ 
+ -------------------------------------------------Example-------------------------------
+ 
+nums[1] isPresentIn -> bit[1], bit[2], bit[4], bit[8]
+nums[2] isPresentIn -> bit[2], bit[4], bit[8]
+nums[3] isPresentIn -> bit[3], bit[4], bit[8]
+nums[4] isPresentIn -> bit[4], bit[8]
+nums[5] isPresentIn -> bit[5], bit[6], bit[8]
+nums[6] isPresentIn -> bit[6], bit[8]
+nums[7] isPresentIn -> bit[7], bit[8]
+nums[8] isPresentIn -> bit[8]
+Let's convert all the indices shown above into their binary representation. We then have (indices for nums array on the LHS and bit array on the RHS)
+
+LHS        -> RHS
+nums[0001] -> bit[0001], bit[0010], bit[0100], bit[1000]
+nums[0010] -> bit[0010], bit[0100], bit[1000]
+nums[0011] -> bit[0011], bit[0100], bit[1000]
+nums[0100] -> bit[0100], bit[1000],
+nums[0101] -> bit[0101], bit[0110], bit[1000]
+nums[0110] -> bit[0110], bit[1000]
+nums[0111] -> bit[0111], bit[1000]
+nums[1000] -> bit[1000]
+ 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 Implementations :
 ------------------------------------------------------------------
@@ -89,4 +112,30 @@ class BIT{// binary index tree
         System.out.println("BIT array is : "+Arrays.toString(b));
     }
 }
+
+
+Note :  The build method can be optimized further and can be done in time O(N)O(N). 
+We do this by adding the entry from the nums array to the immediate next entry in the bit array, 
+i.e. the next higher index that the value from the nums array contributes to. 
+Below is the implementation for this
+
+private void buildBIT() {
+    // copy the nums array in bit array first (1-based indexing)
+    // O(N) operation
+    for (int i = 1; i <= n; ++i) {
+        this.bit[i] = this.nums[i];
+    }
+
+    // Build BIT array by adding the value at i'th index to next immediate index
+    // O(N)
+    for (int i = 1; i <= n; ++i) {
+        int j = i + lsb(i);
+        if (j <= n) {
+            // Add to the immediate next position
+            this.bit[j] += this.bit[i];
+        }
+    }
+}
+
+
 
