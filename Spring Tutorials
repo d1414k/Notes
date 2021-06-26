@@ -1,0 +1,113 @@
+https://www.youtube.com/watch?v=LcmL5ee8XGc&list=PL3NrzZBjk6m-nYX072dSaGfyCJ59Q5TEi&index=4
+
+1. What is IOC?
+
+IOC means inversion of control.
+Spring has IOC container which creats objects for us called beans.
+
+2. Dependency Injection
+
+All variables of a class is called dependency. because that particular class depends on these properties.
+Injecting these values in the object is called dependency injection.
+
+3. How IOC container creats objects.
+
+DemoApplication.java
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = context.getBean("student",Student.class);
+        
+beans.xml
+
+        <bean id = "student" class = "com.example.demo.Student"/>
+        
+4. What is constructor Injection
+
+Creating objects with help of setter injection
+
+Student.java
+    
+    class Student {
+        int id;
+        String name;
+        
+        Student(int id,String name){
+            this.id = id;
+            this.name = name;
+        }
+    }
+
+beans.xml
+         
+         <bean id = "deepak" class = "com.example.demo.Student">
+                <constructor-arg name = "id" value="2"/>
+                <constructor-arg name = "name" value="Deepak" type="java.lang.String"/>
+        </bean>
+
+DemoApplication.java
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student deepak = context.getBean("deepak",Student.class);
+                
+5. What is Setter Injection
+
+Creating objects with help of setters
+
+Student.java
+    
+    class Student {
+        int id;
+        String name;
+        
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+beans.xml
+         
+    <bean id = "ramesh" class = "com.example.demo.Student">
+        <property name="id" value = "3"/>
+        <property name="name" value="Ramesh"/>
+    </bean>
+
+DemoApplication.java
+
+        Student ramesh = context.getBean("ramesh",Student.class);
+        
+6. How to inject object type dependency
+
+
+Student.java
+    
+    class Student {
+        Address address;
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+    }
+
+beans.xml
+         
+    <bean id = "gopal" class = "com.example.demo.Student">
+        <property name="address">
+            <bean class="com.example.demo.Address"/>
+        </property>
+    </bean>
+OR
+
+    <bean id = "address" class="com.example.demo.Address"/>
+
+    <bean id = "gopal" class = "com.example.demo.Student">
+        <property name="address" ref="address"/>
+    </bean>
+
+DemoApplication.java
+
+        Student gopal  = context.getBean("gopal",Student.class);
+        
