@@ -111,3 +111,87 @@ DemoApplication.java
 
         Student gopal  = context.getBean("gopal",Student.class);
         
+7. What is autowired?
+Spring automatically inject dependency for an object, called autowired.
+We need not to define <property> or <constructor-arg> tag explicitly.
+
+DemoApplicatio.java
+        public class DemoApplication {
+
+            public static void main(String[] args) {
+                //SpringApplication.run(DemoApplication.class, args);
+                ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+                Human human = context.getBean("human",Human.class);
+                human.startPumping();
+            }
+        }
+        class Human{
+
+            private Heart heart;
+
+            public Human(Heart heart) {
+                this.heart = heart;
+            }
+            public void setHeart(Heart heart) {
+                this.heart = heart;
+            }
+
+            public void startPumping(){
+                heart.pump();
+            }
+
+        }
+        class Heart{
+            public void pump(){
+                System.out.println("Heart is pumping : Alive");
+            }
+        }
+
+beans.xml
+
+        <?xml version="1.0" encoding="UTF-8"?>
+        <beans xmlns="http://www.springframework.org/schema/beans"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+            <bean id = "heart" class = "com.example.demo.Heart"/>
+            <bean id = "human" class = "com.example.demo.Human" autowire="constructor"/>
+
+        </beans>
+        
+8. Types of autowired.
+        a) byName
+        object ref name and id shound match
+        <bean id = "human" class = "com.example.demo.Human" autowire="byName"/>
+        b) byType
+        class Name should match
+        <bean id = "human" class = "com.example.demo.Human" autowire="byType"/>
+        c) constructor
+        <bean id = "human" class = "com.example.demo.Human" autowire="constructor"/>
+        
+9. what is @Autowired
+        We can do use autowired concept from java class as well.
+        By default auwired is off, we need to enable it before using in java
+        add following line in beans.mxl
+        <context:annotation-config></context:annotation-config>
+        
+        Now we can use this annotation
+        
+        @Autowired
+        public void setHeart(Heart heart) {
+        this.heart = heart;
+        }
+        Note :  this annotation first try to make autowiring using "byType" if not possible[Multiple object of same class] then try "byName".
+        if both fails we need to use @Q
+        
+        beans.xml
+            <bean id = "humanHeart" class = "com.example.demo.Heart"/>
+            <bean id = "octopusHeart" class = "com.example.demo.Heart"/>
+            <bean id = "human" class = "com.example.demo.Human"/>
+            
+            @Autowired
+            @Qualifier("humanHeart")
+            public void setHeart(Heart heart) {
+                this.heart = heart;
+            }
+        
