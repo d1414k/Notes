@@ -207,3 +207,81 @@ beans.xml
                 heart.pump();
             }
         }
+11. how to load literal values from .properties file
+student-info.properties
+        student.name = Deepak
+        student.course = java
+        
+beans.xml
+    <context:property-placeholder location="classpath:student-info.properties"/>
+    <bean id = "student" class = "com.example.demo.Student">
+        <property name="name" value="${student.name}"/>
+        <property name="course" value="${student.course}"/>
+    </bean>
+
+DemoApplication.java
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        //SpringApplication.run(DemoApplication.class, args);
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = context.getBean("student",Student.class);
+        System.out.println(student);
+    }
+}
+class Student{
+    private String name;
+    private String course;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", course='" + course + '\'' +
+                '}';
+    }
+}
+
+11. What is @Value annotation
+It is used to inject literal values 
+
+    <context:annotation-config></context:annotation-config>
+    <context:property-placeholder location="classpath:student-info.properties"/>
+    <bean id = "student" class = "com.example.demo.Student"/>
+    
+class Student{
+    private String name;
+    private String course;
+
+    @Value("${student.name}")
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Value("${student.course}")
+    public void setCourse(String course) {
+        this.course = course;
+    }
+}
+
+We can use this annotation before variable as well. in that case we need not to create setter method at all.
+
+    @Value("${student.name}")
+    private String name;
+    @Value("${student.course}")
+    private String course;
+
+12. What is @Required annotaion
+It is used to make some variable as required, ie if we don't inject its value, we can't create object of that class
+   @Required
+    public void setName(String name) {
+        this.name = name;
+    }
+We can use this annotation before setter only not before variable
