@@ -182,7 +182,7 @@ beans.xml
         this.heart = heart;
         }
         Note :  this annotation first try to make autowiring using "byType" if not possible[Multiple object of same class] then try "byName".
-        if both fails we need to use @Q
+        if both fails we need to use @Qualifier
         
         beans.xml
             <bean id = "humanHeart" class = "com.example.demo.Heart"/>
@@ -195,3 +195,15 @@ beans.xml
                 this.heart = heart;
             }
         
+10. What happens if we use @Autowired before dependency
+        We need not to create setter/constructor at all
+        
+        class Human{
+            @Autowired
+            @Qualifier("humanHeart")
+            private Heart heart;
+
+            public void startPumping(){
+                heart.pump();
+            }
+        }
