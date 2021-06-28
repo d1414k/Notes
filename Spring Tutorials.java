@@ -384,4 +384,53 @@ Note :
             public Student studentBean(){
                 return new Student(addressBean());
             }
-}
+        }
+17. What is @PropertySource annotation
+        When even we need to fetch value from .properties file we need to mention it path before using.
+        public class DemoApplication {
+            public static void main(String[] args) {
+                ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+                Student student = context.getBean("student",Student.class);
+                System.out.println(student);
+            }
+        }
+        @Component
+        class Student{
+            @Value("${student.name}")
+            String name;
+        }
+
+        @Configuration
+        @ComponentScan(basePackages = "com.example.demo")
+        @PropertySource("classpath:student-info.properties")
+        class Config{
+        }
+18. What is @Primary annotation
+if we have many implementaion classes and by default we need to inject dependency of some class then we have to use this annotation.
+        @Component
+        class Student{
+            @Autowired
+            private Book book;
+        }
+        interface Book{
+        }
+        @Component
+        @Primary
+        class MathBook implements Book{
+
+        }
+        @Component
+        class ScienceBook implements Book{
+
+        }
+        @Configuration
+        @ComponentScan(basePackages = "com.example.demo")
+        class Config{
+        }
+Note : Here by default MathBook beans will be injected but if we want to inject some other class dependency we need to use @Qualifier
+        @Component
+        class Student{
+            @Autowired
+            @Qualifier("scienceBook")
+            private Book book;
+        } 
