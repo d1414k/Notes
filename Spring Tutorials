@@ -285,3 +285,103 @@ It is used to make some variable as required, ie if we don't inject its value, w
         this.name = name;
     }
 We can use this annotation before setter only not before variable
+
+13. What is @Component annotations
+It is used to creat objects called beans. Which earlier we are doing using <bean> tag in xml file.
+
+beans.xml
+        <context:component-scan base-package="com.example.demo"/>
+DemoApplication.java
+        public class DemoApplication {
+
+            public static void main(String[] args) {
+                //SpringApplication.run(DemoApplication.class, args);
+                ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+                Student student = context.getBean("student1",Student.class);
+                System.out.println(student);
+            }
+        }
+        
+        @Component("student1")
+        class Student{
+
+        }
+Note : 
+        1. If we do not mention bean id(ex, student1) here. By default class name with small letter is considered as bean id.
+        2. In xml file we need to mention component scan package. Which scan complete package to find @Component annotaions and if found
+        will create object for this.
+        3. We can mention component scan in java as well.
+        
+14. How to use java class as config file or What is @Configuration and @ComponentScan annotations
+        public class DemoApplication {
+            public static void main(String[] args) {
+                ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+                Student student = context.getBean("student",Student.class);
+                System.out.println(student);
+            }
+        }
+        @Component
+        class Student{
+        }
+        @Configuration
+        @ComponentScan(basePackages = "com.example.demo")
+        class Config{
+        }
+15. What is @Bean Annotation
+        It is used to create beans in java file
+        public class DemoApplication {
+
+            public static void main(String[] args) {
+                ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+                Student student = context.getBean("student",Student.class);
+                System.out.println(student);
+            }
+        }
+        @Component
+        class Student{
+        }
+
+        @Configuration
+        //@ComponentScan(basePackages = "com.example.demo")
+        class Config{
+            @Bean(name="student")
+            public Student studentBean(){
+                return new Student();
+            }
+        }
+       Note : 
+       1. by default bean id will be method name
+       2. We can mention more than name as well
+       @Bean(name={"student","student1"})
+       
+16. How to do dependency injection using java class as config file  
+        We can either use setter or constructor injection
+        
+        public class DemoApplication {
+            public static void main(String[] args) {
+                ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+                Student student = context.getBean("studentBean",Student.class);
+                System.out.println(student);
+            }
+        }
+        @Component
+        class Student{
+            Address address;
+            public Student(Address address) {
+                this.address = address;
+            }
+        }
+        class Address{
+        }
+        @Configuration
+        //@ComponentScan(basePackages = "com.example.demo")
+        class Config{
+            @Bean
+            public Address addressBean(){
+                return new Address();
+            }
+            @Bean
+            public Student studentBean(){
+                return new Student(addressBean());
+            }
+}
