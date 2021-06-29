@@ -434,3 +434,68 @@ Note : Here by default MathBook beans will be injected but if we want to inject 
             @Qualifier("scienceBook")
             private Book book;
         } 
+19. Bean lifecycle
+Method 1:
+@PostConstruct this annotation is used before init method. This methood is called after bean is created.
+@PreDestroy this annottion is used before destroy method, This method is called before bean is removed from IOC container ie, once we call context.close()
+
+public class DemoApplication {
+    public static void main(String[] args) {
+        //ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = context.getBean("student",Student.class);
+        System.out.println(student);
+        context.close();
+    }
+}
+
+class Student{
+    @PostConstruct
+    public void init(){
+        System.out.println("Insdide init");
+    }
+    @PreDestroy
+    public void destroy(){
+        System.out.println("Insdide destroy");
+    }
+}
+
+beans.xml
+      <context:annotation-config/>
+      <bean id = "student" class = "com.example.demo.Student"/>
+Note : We can use context.registerShutdownHook(); instead of context.close() both does same work. But registerShutdownHook() method is called before main thread 
+destroyed. 
+
+Method 2:
+we can do this from xml file as well ie, without using annotation
+      <context:annotation-config/>
+      <bean id = "student" class = "com.example.demo.Student" init-method="init" destroy-method="destroy"/>
+      
+Note : If we have many classes and each have int and destriy method we can as follows
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd"
+      default-init-method="init"
+       default-destroy-method="destroy">
+
+      <context:annotation-config/>
+      <bean id = "student" class = "com.example.demo.Student"/>
+</beans>
+        
+Method 3:
+By implementing interfaces. But it is not recommended way
+class Student implements InitializingBean, DisposableBean {
+    
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        
+    }
+}
