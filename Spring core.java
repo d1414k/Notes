@@ -1,5 +1,8 @@
 https://www.youtube.com/watch?v=LcmL5ee8XGc&list=PL3NrzZBjk6m-nYX072dSaGfyCJ59Q5TEi&index=4
 
+Annotation link
+https://javatechonline-com.cdn.ampproject.org/c/s/javatechonline.com/spring-boot-annotations-with-examples/amp/
+
 1. What is IOC?
 
 IOC means inversion of control.
