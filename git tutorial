@@ -1,0 +1,33 @@
+There are 3 types of files in git
+1. untracked.  : made changes
+2. stagged.  : added to staging area.  ie, after git add .
+3. committed
+
+
+-----------------Git commands---------------------------
+
+
+git clone <remote repo name>
+=> In order to clone any reposototy
+
+git submodule update --init --recursive
+
+git status
+
+git pull origin master
+
+git checkout <branch name>
+
+git checkout -b <new branch name>
+
+git branch
+
+git add .
+
+git commit -m "some commit msg"
+
+git commit --amend
+
+git push 
+
+git push --force
