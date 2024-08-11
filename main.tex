@@ -1,11 +1,3 @@
-%% start of file `template.tex'.
-%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
-%
-% This work may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License version 1.3c,
-% available at http://www.latex-project.org/lppl/.
-
-
 \documentclass[11pt,a4paper,roman]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
 
 % modern themes
@@ -23,7 +15,7 @@
 %\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
 
 % adjust the page margins
-\usepackage[scale=0.8]{geometry}
+\usepackage[scale=0.84]{geometry}
 \usepackage{multicol}
 %\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
 %\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
@@ -33,7 +25,7 @@
 % personal data
 \name{Deepak Kumar}{Vishwakarma}
 % \title{Curriculum Vitae}                               % optional, remove / comment the line if not wanted
-\address{Samsung R\&D Noida }{}{}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+\address{\textbf{Bangalore, India} }{}{}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
 % \phone[mobile]{909-839-3097}                   % optional, remove / comment the line if not wanted
 % \phone[fixed]{01234 123456}                    % optional, remove / comment the line if not wanted
 %\phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
@@ -101,108 +93,112 @@
 %-----       resume       ---------------------------------------------------------
 \makecvtitle
 \vspace*{-23mm}
-
 \begin{center}
-\begin{tabular}{ c c c c }
-  \faEnvelopeO\enspace deepakkumarv128@gmail.com& \faGithub\enspace \href{https://github.com/d1414k}{d1414k}   &  \faMobile\enspace +91-7533978164\\  
+\begin{tabular}{c c c c }
+  \faEnvelopeO\enspace deepakkumarv128@gmail.com &  \faMobile\enspace +91-7533978164 & \faLinkedin \enspace \href{https://www.linkedin.com/in/deepakkvishwakarma/}{deepakkvishwakarma}
+
 \end{tabular}
 \end{center}
 
-\section{EDUCATION}
+\section{Skills}
+\textbf{Languages:} Golang, Java,  C/C++, SQL \\[3pt]
+\textbf{Technologies \& Tools:} AWS (EC2, DynamoDB, S3, SQS, Lambda, State Machine, Redis), Docker, Kafka, Spring, Spark, Flink, Git, GRPC, Snowflake, Databricks
+
+\section{Experience}
+{\customcventry{Nov 2022 - Present}{Software Development Engineer II}{Swiggy}{Bangalore, In}{}
+{ \begin{itemize}
+    \item \textbf{Fraud Firewall Platform}
+    \begin{itemize}
+    \item Fraud firewall platform dynamically blacklists and whitelists entities such as restaurants, customers and cities etc.
+      \item Implemented fraud firewall service with 5 APIs, CI/CD, UT/SLT, metrics and alert setup.
+      \item This platform reduces onboarding time from \textbf{1 week to 3-to 4 hr} and till now \textbf{40 use cases} have been onboarded which contributed to a \textbf{\$1.2M monthly gain}.
+      \item Technologies used: Golang, GRPC, DynamoDB, Aurora RDS, Retool.
+      \vspace{5pt}
+    \end{itemize}
+    \item \textbf{High Freshness Signal Platform}
+    \begin{itemize}
+      \item Developed a platform to create high freshness signals without writing code.
+      \item This platform reduces signal onboarding time from \textbf{1 week to 1 day}.
+      \item Till now \textbf{10 signals} have been onboarded which contributed to a \textbf{\$0.3M monthly gain}.
+      \item Technologies used: Java, Spring boot, Redis, Flink, Aurora RDS, Retool.
+    \end{itemize}
+  \end{itemize}
+}
+
+
+{\customcventry{June 2021 - Nov 2022}{Software Development Engineer I}{Swiggy}{Bangalore, In}{}
+{ \begin{itemize}
+    \item \textbf{DE on-boarding and Impersonation}
+    \begin{itemize}
+      \item Developed a platform to onboard Swiggy Delivery Executive(DE) and verify their documents eg. Aadhaar card, Pan card, DL etc.
+      \item Implemented 4 microservices, 5 lambdas and 6 state machines to fulfil this use case.
+      \item Currently, \textbf{8000 DEs} are automatically verifying their documents daily which reduces \textbf{40\%} of the agent’s bandwidth.
+      \item Technologies used: Golang, GRPC, DynamoDB, SQS, Lambda, State machine.
+    \end{itemize}
+  \end{itemize}
+}
+}
+
+{\customcventry{June 2019 - May 2021}{Software Engineer}{Samsung R\&D Institute }{Noida, In}{}
+{\begin{itemize}
+\item Analysed and resolved more than \textbf{300} issues in the technologies related to \textbf{Wi-Fi.}
+\item  Designed sanity/throughput application for \textbf{Wi-Fi Direct} which reduces QA effort from \textbf{week to one day} and reduces no. of production issues by \textbf{30\%}.
+\item  Optimised implementation of \textbf{Wi-Fi Direct} state machine and added new features like Wi-Fi Aware (\textbf{NAN}).
+ \item Worked on binary and upgraded all Wi-Fi related features in more than \textbf{150} models including flagship devices like the \textbf{S20}.
+\end{itemize}
+}
+}
+
+
+\section{Education}
 {\customcventry{May 2019}{B-Tech in Computer Science and Engineering     \textbf{CGPA}: 9.16/10.00 }{National Institute of Technology, Uttarakhand}{Uttarakhand, In}{}{}}
 
 
-\section{EXPERIENCE}
+% \section{PROJECTS}
 
-{\customcventry{June 2019 - Present}{Software Engineer}{Samsung R\&D Institute }{Noida, In}{}
-{\begin{itemize}
-\smallskip
-  \item Establish development standard, improve development process and support to follow development schedule and help achieve \textbf{R\&D projects objectives}.
-  \smallskip
-  \item Resolving, analyzing issues and optimizing code in the field of technologies related to \textbf{Wifi direct.}
-  \smallskip
-  \item Revised implementation for \textbf{WiFi Direct} and \textbf{WiFi Aware} features of Samsung mobiles.
-  \smallskip
-  \item Enhancement of existing features and add new features as per requirements like Wifi Aware (\textbf{NAN}).
-  \smallskip
-  \item Worked on binary upgrade for different devices \textbf{i.e.}- \textbf{A71, M51, S10, S7+}
-  \smallskip
-\end{itemize}
-}
-}
+% {\customcvproject{Wireless Intercom for Android devices}{\textit{\textbf{Android, NSD, WebRTC}}}
+% {\begin{itemize}
+%   \item This is Samsung internal project where one user can call to other user connected in same network with WiFi without internet connection.
+%   \smallskip
+%   \item In this feature I used \textbf{Network service discovery} protocol that provides the \textbf{API} to discover services on a network also detection of networks by identifying resources.
+% \end{itemize}
+% }
+
+% {\customcvproject{Transferring of files using WiFi Direct and Aware Technology }{\textit{\textbf{Java}}}
+% {\begin{itemize}
+%   \item This is also Samsung internal project where multiple android devices connected using Wi-Fi Direct (\textbf{P2P}) technology and then transfer files using \textbf{socket programming.}
+%   \smallskip
+%   \item In Wi-fi Aware when two or more devices connected, form a cluster called Wi-Fi aware (\textbf{NAN}) cluster and then they can communicate via this.
+%   \smallskip
+% \end{itemize}
+% }
+% }
+
+% {\customcvproject{Training and Placement Cell}{\textit{\textbf{Html5, JSP, MySql}}}
+%   {\begin{itemize}
+%     \item Renovate the website of Training Placement Cell of NIT Uttarakhand also created database table for students and companies and using SQL queries filtered eligible students then send them email using \textbf{SMTP} protocol. 
+%   \end{itemize}
+%   }
+% }
 
 
-\section{PROJECTS}
-
-{\customcvproject{Wireless Intercom for Android devices}{\textit{Android, NSD}}
-{\begin{itemize}
-  \item This is Samsung internal project where one user can call to other user connected in same network with WiFi without internet connection.
-  \smallskip
-  \item In this feature I used \textbf{Network service discovery} protocol that provides the API to discover services on a network also detection of networks by identifying resources.
-\end{itemize}
-}
-
-{\customcvproject{Transferring of files using WiFi Direct and Aware Technology }{\textit{Android, Java, WiFi}}
-{\begin{itemize}
-  \item This is also Samsung internal project where multiple android devices connected using Wi-Fi Direct (\textbf{P2P}) technology and then transfer files using socket programming.
-  \smallskip
-  \item Also when two or more devices connected and form a cluster i.e Wi-Fi aware (\textbf{NAN}) cluster and then they can communicate via this.
-  \smallskip
-\end{itemize}
-}
-}
-
-{\customcvproject{Training and Placement Cell}{\textit{Html5, JSP, MySql}}
-  {\begin{itemize}
-    \item Renovate the website of Training Placement Cell of NIT Uttarakhand more dynamically.
-    \smallskip
-    \item Manage website infrastructure and developed more responsive web pages.
-    \smallskip
-  \end{itemize}
-  }
-}
-
-\section{Skills}
-
-\item \textbf{Programming Languages and Tools}\\
- Java, C
-
- \item \textbf{Platforms and Tools}\\
- Windows, JVM, NetBeans, Perforce, Wireshark, Android Studio, Git
-
- \item \textbf{IT Constructs}\\
- Data Structures and Algorithms, OOPs, SQL, Operating System and DBMS
-
-\section{ACHIEVEMENTS}
+\section{Awards and Certificates}
 \begin{minipage}{\maincolumnwidth}%
 	\small{
     	\begin{itemize}
-          \item Cleared \textbf{SWC Professional Exam} in Samsung Electronics Pvt. Ltd.
+          \item Cleared \textbf{SWC Professional Exam} in Samsung (Around \textbf{6\%} of Samsung employees cleared till now.)
           \item Secured \textbf{AIR-788} in \textbf{GATE-2019.}
-          \item Winner of CodeByte'18 in NIT-UK
+          \item Winner of \textbf{CodeByte}'18 in NIT-UK and also participated in many coding competitions.
 		\end{itemize}}%
 \end{minipage}%
       
-}
+
 % Publications from a BibTeX file without multibib
 %  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
 %  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
 \nocite{*}
 \bibliographystyle{plain}
-\bibliography{publications}                        % 'publications' is the name of a BibTeX file
-
-% Publications from a BibTeX file using the multibib package
-%\section{Publications}
-%\nocitebook{book1,book2}
-%\bibliographystylebook{plain}
-%\bibliographybook{publications}                   % 'publications' is the name of a BibTeX file
-%\nocitemisc{misc1,misc2,misc3}
-%\bibliographystylemisc{plain}
-%\bibliographymisc{publications}                   % 'publications' is the name of a BibTeX file
-
-%-----       letter       ---------------------------------------------------------
+\bibliography{publications}                       
 
 \end{document}
 
-
-%% end of file `template.tex'.
