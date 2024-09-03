@@ -1,0 +1,36 @@
+1. What's write through and write back cache and which one is fast https://www.youtube.com/shorts/zc6DFrVPR3Q
+a) write through write data to both cache and memory so it slower
+b) write back writes data to cache only, and it will write data to memory when it will be removed from cache (inconsistency issue if power failure)
+
+2. Whats paging in os https://www.javatpoint.com/os-paging-with-example
+a) Divide each process in the form of pages and also memory to same size frame
+b) 1 page will fit into 1 frame
+c) Physical addess is address in memory and logic address in address in secondory storage
+d) Each process will have mapping of Logical address space to physical addess space called page table
+e) Page table have mapping of page no to frame no
+f) logical address space is devided into pageno+pageoffset
+g) physical address space is devided into frameno+pageoffset
+h) page offset is word no in that page
+i) mmu(memory management unit handles this translation)
+
+3. What's thrashing
+a) A condition where a computer spends too much time moving data between RAM and disk, instead of executing tasks
+
+4. What's virtual memory
+a) Virtual Memory is a storage scheme that provides user an illusion of having a very big main memory. This is done by treating a part of secondary memory(paging/segmentaion) as the main memory.
+b) By doing this, the degree of multiprogramming will be increased and therefore, the CPU utilization will also be increased.
+
+5) Multiprogramming vs Multiprocessing vs Multitasking vs Multithreading
+a) The concurrent residency of more than one program in the main memory is referred as multiprogramming.
+b) When one system is connected to more than one processor which collectively work for the completion of the task, it is called as multiprocessing systems.
+c) Earlier when computers were invented, a user was allowed to submit only job or task at a time. But later with availability of high-speed processor, one can submit more than one task.
+if tasked is blocked for I/O system can execute other task called Multitasking
+d) Multithreading is a conceptual programming paradigm where a process is divided into a number of sub-processes called as threads. Each thread is independent and has its own path of execution with enabled inter thread communication
+
+5. Mutex vs semaphore
+a) mutexes are better for protecting a single shared resource, while semaphores are better for multiple instances(counting semaphone) of a resource
+b) Binary semaphore is called mutex
+c) semaphone has wait(s) and signal(s) mechanism
+
+
+
